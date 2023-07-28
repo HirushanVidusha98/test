@@ -1,4 +1,7 @@
 Flask
 Flask-PyMongo
+numpy
+folium
+pandas
 mangum
 waitress
