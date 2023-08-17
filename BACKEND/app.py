@@ -46,10 +46,12 @@ def run_algorithm():
     temple = data.get('Temples')
     heritages = data.get('Heritages')
     beaches = data.get('Beaches')
+    parks = data.get('Parks')
+    arts = data.get('Arts')
     username = data.get('Username')
 
     # Call main function
-    result = main(start_lat, start_lon, end_lat, end_lon, temple, heritages, beaches)
+    result = main(start_lat, start_lon, end_lat, end_lon, temple, heritages, beaches, parks, arts)
 
     routeww = {
         'userName': username,
@@ -61,7 +63,7 @@ def run_algorithm():
 
     return 'Success'
 
-def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches):
+def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches, Parks, Arts):
     # print(StartLat)
     # print(StartLon)
     # print(EndLat)
@@ -83,6 +85,16 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches):
     rowsBeaches = ['Avarage Distance']
     columnsBeaches = ['Jungle Beach', 'Unawatuna Beach', 'Hikkaduwa Beach', 'Dalawella Beach', 'Talpe Beach', 'Ahungalla Beach', 'Induruwa Beach']
     df3 = pd.DataFrame(matrixBeaches, index=rowsBeaches, columns=columnsBeaches)
+
+    matrixParks = np.zeros((1, 4))
+    rowsParks = ['Avarage Distance']
+    columnsParks = ['Beach Park Galle Municipal Council', 'Mahamodara Beach Park Marine Walk', 'The Great wall of lovers galle', 'New Marine Walk Galle Sea sight']
+    df4 = pd.DataFrame(matrixParks, index=rowsParks, columns=columnsParks)
+    
+    matrixArtGallary = np.zeros((1, 2))
+    rowsArtGallaries = ['Avarage Distance']
+    columnsArtGallaries = ['The Galle Fort Art Gallery', 'Pradeep Pencil Art Gallary']
+    df5 = pd.DataFrame(matrixArtGallary, index=rowsArtGallaries, columns=columnsArtGallaries)
     # print("abc")
     data = pd.read_csv("/home/ubuntu/test/BACKEND/DataSet.csv") 
     
@@ -96,14 +108,16 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches):
     count1 = 0
     count2 = 0
     count3 = 0
+    count4 = 0
+    count5 = 0
     start_positions = []
     final_start_positions = []
-    time = 7
+    time = 10
     start_positions.append(StartLat)
     start_positions.append(StartLon)
 
-    while time > 0 and (Temples > 0 or Heritages > 0 or Beaches > 0):
-        ProbArr = [Temples, Heritages, Beaches]
+    while time > 0 and (Temples > 0 or Heritages > 0 or Beaches > 0 or Parks > 0 or Arts > 0):
+        ProbArr = [Temples, Heritages, Beaches, Parks, Arts]
 
         if getMaxValue(ProbArr) == Temples:
             Temples *= 0.75
@@ -142,7 +156,7 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches):
 
             
             time -= 1
-        else:
+        elif getMaxValue(ProbArr) == Beaches:
             Beaches *= 0
             
             if count3 == 0:
@@ -163,6 +177,46 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches):
             
             
             time -= 4
+        elif getMaxValue(ProbArr) == Parks:
+            Parks *= 0
+            
+            if count4 == 0:
+                findNeares(matrixParks, StartLat, StartLon, EndLat, EndLon, df4)
+                count4 += 1
+            
+            column_name_Parks = df4.columns[find_min_value_position(matrixParks)]
+            
+            galle_data_column_name_Parks = data[data['Places'] == column_name_Parks]
+            latitude_col_Parks = galle_data_column_name_Parks['Latitude'].values[0]
+            longitude_col_Parks = galle_data_column_name_Parks['Longitude'].values[0]
+            start_positions.append(latitude_col_Parks)
+            start_positions.append(longitude_col_Parks)
+            
+            time -= 2
+        
+
+        else:
+            Arts *= 0.75
+            
+            if count5 == 0:
+                findNeares(matrixArtGallary, StartLat, StartLon, EndLat, EndLon, df5)
+                count5 += 1
+            
+            column_name_ArtGallary = df5.columns[find_min_value_position(matrixArtGallary)]
+            
+            galle_data_column_name_ArtGallary = data[data['Places'] == column_name_ArtGallary]
+            latitude_col_ArtGallary = galle_data_column_name_ArtGallary['Latitude'].values[0]
+            longitude_col_ArtGallary = galle_data_column_name_ArtGallary['Longitude'].values[0]
+            start_positions.append(latitude_col_ArtGallary)
+            start_positions.append(longitude_col_ArtGallary)
+            
+            time -= 2
+
+
+
+
+
+
     start_positions.append(EndLat)
     start_positions.append(EndLon)
     #.................................................................................
