@@ -112,7 +112,7 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches, Parks,
     count5 = 0
     start_positions = []
     final_start_positions = []
-    time = 20
+    time = 12
     start_positions.append(StartLat)
     start_positions.append(StartLon)
 
@@ -217,8 +217,8 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches, Parks,
 
 
 
-    start_positions.append(EndLat)
-    start_positions.append(EndLon)
+    # start_positions.append(EndLat)
+    # start_positions.append(EndLon)
     #.................................................................................
 
     list_size = len(start_positions)
@@ -280,7 +280,7 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches, Parks,
     final_start_positions.append(EndLon)
     print(EndLat)
     print(EndLon)
-    return start_positions
+    return final_start_positions
 
 def getMaxValue(ProbArr):
     max_value = ProbArr[0]
