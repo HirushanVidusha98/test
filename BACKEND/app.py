@@ -112,7 +112,7 @@ def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches, Parks,
     count5 = 0
     start_positions = []
     final_start_positions = []
-    time = 10
+    time = 20
     start_positions.append(StartLat)
     start_positions.append(StartLon)
 
