@@ -53,11 +53,13 @@ def run_algorithm():
     # Call main function
     result = main(start_lat, start_lon, end_lat, end_lon, temple, heritages, beaches, parks, arts)
 
+    finalresult = result
+
     newresult = get_locations(result)
 
     routeww = {
         'userName': username,
-        'result': result,
+        'result': finalresult,
         'places' : newresult
     }
 
@@ -66,35 +68,7 @@ def run_algorithm():
 
     return 'Success'
 
-def get_locations(result):
-    data = pd.read_csv("/home/ubuntu/test/BACKEND/DataSet.csv")  
-    result.pop(0)
-    result.pop(0)
-    
-    new_list_size = len(result)
-    result.pop(new_list_size-1)
-    
-    new_list_size = len(result)
-    result.pop(new_list_size-1)
-    
-    print(result)
-    
-    final_start_places = []
-    
-    for i in range(0, len(result), 2):
-        latitude = result[i]
-        longitude = result[i + 1]
 
-        # Find matching rows in the DataFrame
-        matching_rows = data[(data['Latitude'] == latitude) & (data['Longitude'] == longitude)]
-
-        if not matching_rows.empty:
-            Places = matching_rows.iloc[0]['Places']
-            final_start_places.append(Places)
-        else:
-            print(f"No matching place found for Latitude: {latitude}, Longitude: {longitude}")
-            
-    return final_start_places
 
 def main(StartLat, StartLon, EndLat, EndLon, Temples, Heritages, Beaches, Parks, Arts):
     # print(StartLat)
@@ -373,6 +347,36 @@ def find_min_value_position(disArr):
 
     disArr[0][min_col] = 999999 
     return min_col
+
+def get_locations(result):
+    data = pd.read_csv("/home/ubuntu/test/BACKEND/DataSet.csv")  
+    result.pop(0)
+    result.pop(0)
+    
+    new_list_size = len(result)
+    result.pop(new_list_size-1)
+    
+    new_list_size = len(result)
+    result.pop(new_list_size-1)
+    
+    print(result)
+    
+    final_start_places = []
+    
+    for i in range(0, len(result), 2):
+        latitude = result[i]
+        longitude = result[i + 1]
+
+        # Find matching rows in the DataFrame
+        matching_rows = data[(data['Latitude'] == latitude) & (data['Longitude'] == longitude)]
+
+        if not matching_rows.empty:
+            Places = matching_rows.iloc[0]['Places']
+            final_start_places.append(Places)
+        else:
+            print(f"No matching place found for Latitude: {latitude}, Longitude: {longitude}")
+            
+    return final_start_places
 
 # Run the main function
 # main()
