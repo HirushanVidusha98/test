@@ -71,7 +71,7 @@ def run_algorithm():
     }
 
     # Save result to MongoDB
-    db.placesflask.insert_one(routewww)
+    db.placesssflask.insert_one(routewww)
 
     return 'Success'
 
