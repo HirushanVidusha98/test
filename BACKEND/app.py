@@ -34,6 +34,20 @@ def handle_api():
         # Return an appropriate response if there are no records
         return jsonify({'message': 'No records found'})
 
+@app.route('/lastlocation', methods=['GET'])
+def handle_lastlocation():
+        last_record = db.locationsflask.find_one(sort=[('_id', -1)])
+
+        if last_record:
+            # Convert the record's _id to a string
+            last_record['_id'] = str(last_record['_id'])
+            
+            # Return the last record as a JSON response
+            return jsonify({'locationsflask': last_record})
+
+        # Return an appropriate response if there are no records
+        return jsonify({'message': 'No records found'})
+
 
 @app.route('/api', methods=['POST'])
 def run_algorithm():
@@ -71,7 +85,7 @@ def run_algorithm():
     }
 
     # Save result to MongoDB
-    db.placesssflask.insert_one(routewww)
+    db.locationsflask.insert_one(routewww)
 
     return 'Success'
 
