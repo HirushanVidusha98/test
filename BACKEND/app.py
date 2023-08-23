@@ -53,9 +53,17 @@ def run_algorithm():
     # Call main function
     result = main(start_lat, start_lon, end_lat, end_lon, temple, heritages, beaches, parks, arts)
 
+    print(result)
+
     finalresult = result
 
+    print(finalresult)
+
     newresult = get_locations(result)
+    print('hiiiiiii')
+    print(finalresult)
+    print(newresult)
+    print('hiiiiiii')
 
     routeww = {
         'userName': username,
