@@ -53,26 +53,25 @@ def run_algorithm():
     # Call main function
     result = main(start_lat, start_lon, end_lat, end_lon, temple, heritages, beaches, parks, arts)
 
-    print(result)
-
-    finalresult = result
-
-    print(finalresult)
-
-    newresult = get_locations(finalresult)
-    print('hiiiiiii')
-    print(result)
-    print(newresult)
-    print('hiiiiiii')
-
     routeww = {
         'userName': username,
-        'result': result,
-        'places' : newresult
+        'result': result 
     }
 
     # Save result to MongoDB
     db.routesflask.insert_one(routeww)
+
+    finalresult = result
+
+    newresult = get_locations(finalresult)
+
+    routewww = {
+        'userName': username,
+        'places' : newresult
+    }
+
+    # Save result to MongoDB
+    db.placesflask.insert_one(routewww)
 
     return 'Success'
 
