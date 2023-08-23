@@ -67,7 +67,7 @@ def run_algorithm():
 
     routeww = {
         'userName': username,
-        'result': finalresult,
+        'result': result,
         'places' : newresult
     }
 
