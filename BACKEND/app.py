@@ -59,15 +59,15 @@ def run_algorithm():
 
     print(finalresult)
 
-    newresult = get_locations(result)
+    newresult = get_locations(finalresult)
     print('hiiiiiii')
-    print(finalresult)
+    print(result)
     print(newresult)
     print('hiiiiiii')
 
     routeww = {
         'userName': username,
-        'result': finalresult,
+        'result': result,
         'places' : newresult
     }
 
