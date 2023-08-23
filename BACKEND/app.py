@@ -348,24 +348,22 @@ def find_min_value_position(disArr):
     disArr[0][min_col] = 999999 
     return min_col
 
-def get_locations(result):
+def get_locations(abc):
     data = pd.read_csv("/home/ubuntu/test/BACKEND/DataSet.csv")  
-    result.pop(0)
-    result.pop(0)
+    abc.pop(0)
+    abc.pop(0)
     
-    new_list_size = len(result)
-    result.pop(new_list_size-1)
+    new_list_size = len(abc)
+    abc.pop(new_list_size-1)
     
-    new_list_size = len(result)
-    result.pop(new_list_size-1)
-    
-    print(result)
+    new_list_size = len(abc)
+    abc.pop(new_list_size-1)
     
     final_start_places = []
     
-    for i in range(0, len(result), 2):
-        latitude = result[i]
-        longitude = result[i + 1]
+    for i in range(0, len(abc), 2):
+        latitude = abc[i]
+        longitude = abc[i + 1]
 
         # Find matching rows in the DataFrame
         matching_rows = data[(data['Latitude'] == latitude) & (data['Longitude'] == longitude)]
